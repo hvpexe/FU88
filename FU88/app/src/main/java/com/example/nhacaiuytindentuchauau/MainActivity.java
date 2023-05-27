@@ -16,7 +16,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     TextView txtDiem;
     CheckBox cbOne, cbTwo, cbThree;
-    SeekBar skOne, skTwo, skThree;
+    SeekBar sbOne, sbTwo, sbThree;
     ImageButton ibPlay;
     int soDiem = 100;
 
@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
         AnhXa();
 
         //an thanh seekbar
-        skOne.setEnabled(false);
-        skTwo.setEnabled(false);
-        skThree.setEnabled(false);
+        sbOne.setEnabled(false);
+        sbTwo.setEnabled(false);
+        sbThree.setEnabled(false);
 
         txtDiem.setText(String.valueOf(soDiem));
 
@@ -43,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
                 int two     = random.nextInt(number);
                 int three   = random.nextInt(number);
 
-                checkWinner(this, skOne, "ONE WIN", cbOne);
-                checkWinner(this, skTwo, "TWO WIN", cbTwo);
-                checkWinner(this, skThree, "THREE WIN", cbThree);
+                checkWinner(this, sbOne, "ONE WIN", cbOne);
+                checkWinner(this, sbTwo, "TWO WIN", cbTwo);
+                checkWinner(this, sbThree, "THREE WIN", cbThree);
 
-                skOne.setProgress(skOne.getProgress() + one);
-                skTwo.setProgress(skTwo.getProgress() + two);
-                skThree.setProgress(skThree.getProgress() + three);
+                sbOne.setProgress(sbOne.getProgress() + one);
+                sbTwo.setProgress(sbTwo.getProgress() + two);
+                sbThree.setProgress(sbThree.getProgress() + three);
             }
 
             @Override
@@ -60,13 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
         ibPlay.setOnClickListener(v -> {
             if (cbOne.isChecked() || cbThree.isChecked() || cbTwo.isChecked()) {
-                skOne.setProgress(0);
-                skTwo.setProgress(0);
-                skThree.setProgress(0);
+                sbOne.setProgress(0);
+                sbTwo.setProgress(0);
+                sbThree.setProgress(0);
                 ibPlay.setVisibility(View.INVISIBLE);
                 countDownTimer.start();
 
-                DisableCheckBox();
+                setEnabledAllCheckBox(false);
             } else {
                 Toast.makeText(MainActivity.this, "Vui lòng đặt cược trước khi chơi! ", Toast.LENGTH_SHORT).show();
             }
@@ -102,20 +102,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
             txtDiem.setText(String.valueOf(soDiem));
-            EnableCheckBox();
+            setEnabledAllCheckBox(true);
         }
     }
-
-    private void EnableCheckBox() {
-        cbOne.setEnabled(true);
-        cbTwo.setEnabled(true);
-        cbThree.setEnabled(true);
-    }
-
-    private void DisableCheckBox() {
-        cbOne.setEnabled(false);
-        cbTwo.setEnabled(false);
-        cbThree.setEnabled(false);
+    private void setEnabledAllCheckBox(boolean enabled) {
+        cbOne.setEnabled(enabled);
+        cbTwo.setEnabled(enabled);
+        cbThree.setEnabled(enabled);
     }
     private void AnhXa() {
         txtDiem = (TextView) findViewById(R.id.textviewDiemSo);
@@ -123,8 +116,8 @@ public class MainActivity extends AppCompatActivity {
         cbOne   = (CheckBox) findViewById(R.id.checkboxOne);
         cbTwo   = (CheckBox) findViewById(R.id.checkboxTwo);
         cbThree = (CheckBox) findViewById(R.id.checkboxThree);
-        skOne   = (SeekBar) findViewById(R.id.seekbarOne);
-        skTwo   = (SeekBar) findViewById(R.id.seekbarTwo);
-        skThree = (SeekBar) findViewById(R.id.seekbarThree);
+        sbOne   = (SeekBar) findViewById(R.id.seekbarOne);
+        sbTwo   = (SeekBar) findViewById(R.id.seekbarTwo);
+        sbThree = (SeekBar) findViewById(R.id.seekbarThree);
     }
 }
